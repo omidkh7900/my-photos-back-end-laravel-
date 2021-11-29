@@ -14,16 +14,15 @@ class MediaFactory extends Factory
      */
     public function definition()
     {
-        $mimeType = $this->fakeMimeType();
-
         $path = $this->faker->image(storage_path('app/medias'));
         $originalFilePath = $this->originalFilePath($path);
         $originalFileSize = Storage::size($originalFilePath);
+        $originalFileMimeType = Storage::mimeType($originalFilePath);
 
         return [
             'name' => $this->faker->name(),
-            'file_name' => $this->faker->name() . '.' . $mimeType,
-            'mime_type' => $mimeType,
+            'file_name' => $this->faker->name() . '.' . $originalFileMimeType,
+            'mime_type' => $originalFileMimeType,
             'size' => $originalFileSize,
             'manipulations' => json_encode([
                 'small' => $this->originalFilePath($this->faker->image(storage_path('app/medias'), 100, 100)),
@@ -39,22 +38,5 @@ class MediaFactory extends Factory
     public function originalFilePath($path)
     {
         return str_replace(storage_path() . '/app/', '', $path);
-    }
-
-    public function fakeMimeType()
-    {
-        return $this->mimeTypes()[random_int(0, count($this->mimeTypes()) - 1 )];
-    }
-
-    public function mimeTypes()
-    {
-        return [
-          'jpeg',
-          'png',
-          'svg',
-          'jpg',
-          'gif',
-          'webp',
-        ];
     }
 }
