@@ -18,6 +18,7 @@ class CreateMediaTable extends Migration
             $table->string('mime_type')->nullable();
             $table->unsignedBigInteger('size');
             $table->json('manipulations');
+            $table->softDeletes();
 
             $table->timestamps();
         });
