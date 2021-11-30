@@ -24,12 +24,12 @@ class MediaFactory extends Factory
             'file_name' => $this->faker->name() . '.' . $originalFileMimeType,
             'mime_type' => $originalFileMimeType,
             'size' => $originalFileSize,
-            'manipulations' => json_encode([
+            'manipulations' => [
                 'small' => $this->originalFilePath($this->faker->image(storage_path('app/medias'), 100, 100)),
                 'normal' => $this->originalFilePath($this->faker->image(storage_path('app/medias'), 250, 250)),
                 'large' => $this->originalFilePath($this->faker->image(storage_path('app/medias'), 500, 500)),
                 'original' => $originalFilePath,
-            ]),
+            ],
             'created_at' => now(),
             'updated_at' => now(),
         ];
