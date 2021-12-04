@@ -30,4 +30,19 @@ class MediaRepository implements MediaContractRepository
     {
         return Media::findOrFail($mediaId);
     }
+
+    public function createMedia(array $data)
+    {
+        $media = Media::create([
+           'name' => $data['name'],
+           'user_id' => $data['user_id'],
+           'file_name' => $data['media']->getClientOriginalName(),
+           'size' => $data['media']->getSize(),
+           'mime_type' => $data['media']->extension(),
+           'manipulations' => [
+                    'original' => $data['media']->store('medias'),
+                ]
+        ]);
+        return $media;
+    }
 }

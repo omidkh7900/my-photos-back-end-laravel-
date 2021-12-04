@@ -9,4 +9,6 @@ interface MediaRepository
     public function getImage(int $mediaId, string $type);
 
     public function getMedia(int $mediaId);
+
+    public function createMedia(array $mediaId);
 }
