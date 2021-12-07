@@ -21,7 +21,7 @@ class MediaController extends Controller
         return app(UserMediasResponse::class, ['data' => $data]);
     }
 
-    public function show($media, MediaRepository $mediaRepository)
+    public function show(MediaRepository $mediaRepository, $media)
     {
         $data['media'] = $mediaRepository->getMedia($media);
 
