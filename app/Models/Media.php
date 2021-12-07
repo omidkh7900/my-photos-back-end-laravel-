@@ -40,7 +40,7 @@ class Media extends Model
             return null;
         }
 
-        return Storage::download($this->manipulations[$type]);
+        return Storage::get($this->manipulations[$type]);
     }
 
     public static function typesOfImage()
@@ -53,8 +53,8 @@ class Media extends Model
         ];
     }
 
-    public function isTypesOfImage($type)
+    public static function isTypesOfImage($type)
     {
-        return in_array($type, $this::typesOfImage());
+        return in_array($type, self::typesOfImage());
     }
 }

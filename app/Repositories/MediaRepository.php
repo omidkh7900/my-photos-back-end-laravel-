@@ -45,4 +45,18 @@ class MediaRepository implements MediaContractRepository
         ]);
         return $media;
     }
+
+    public function storeImage(int $mediaId, string $path, string $type)
+    {
+        if (! Media::isTypesOfImage($type)) {
+            throw new \App\Exceptions\WrongTypeOfImage;
+        }
+        $media = Media::find($mediaId);
+
+        $file = new \Illuminate\Http\UploadedFile($path, $media->file_name);
+
+        $media->update([
+            "manipulations" => array_merge($media->manipulations, ["$type" => $file->store('medias')]),
+        ]);
+    }
 }
