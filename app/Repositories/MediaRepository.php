@@ -34,7 +34,7 @@ class MediaRepository implements MediaContractRepository
     public function createMedia(array $data)
     {
         $media = Media::create([
-           'name' => $data['name'],
+           'name' => $data['name'] ?? $data['media']->getClientOriginalName(),
            'user_id' => $data['user_id'],
            'file_name' => $data['media']->getClientOriginalName(),
            'size' => $data['media']->getSize(),
