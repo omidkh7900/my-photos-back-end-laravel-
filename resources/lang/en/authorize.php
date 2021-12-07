@@ -2,5 +2,5 @@
 
 return [
 
-    'view_media' => 'you don\'t have authorize to get this image',
+    'view_media' => 'you don\'t have authorize to get this media',
 ];
