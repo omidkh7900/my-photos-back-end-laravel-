@@ -27,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('view-media', [MediaPolicy::class, 'view']);
+        Gate::define('delete-media', [MediaPolicy::class, 'delete']);
 
         //
     }

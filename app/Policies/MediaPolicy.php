@@ -14,4 +14,12 @@ class MediaPolicy implements MediaContractPolicy
 
         return false;
     }
+
+    public function delete($user, $media)
+    {
+        if($user['id'] == $media['user_id'])
+            return true;
+
+        return false;
+    }
 }

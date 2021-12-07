@@ -59,4 +59,22 @@ class MediaRepository implements MediaContractRepository
             "manipulations" => array_merge($media->manipulations, ["$type" => $file->store('medias')]),
         ]);
     }
+
+    public function deleteImage(int $mediaId, string $type)
+    {
+        if (! Media::isTypesOfImage($type)) {
+            throw new \App\Exceptions\WrongTypeOfImage;
+        }
+        $media = Media::withTrashed()->findOrFail($mediaId);
+        $media->deleteImage($type);
+        $media->update([
+            'manipulations' => array_merge($media->manipulations, [$type => null]),
+        ]);
+    }
+
+    public function deleteMedia(int $mediaId)
+    {
+        $media = Media::findOrFail($mediaId);
+        $media->delete();
+    }
 }

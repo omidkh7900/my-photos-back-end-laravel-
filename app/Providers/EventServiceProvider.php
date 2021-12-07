@@ -8,6 +8,8 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use App\Events\CreateMedia;
 use App\Listeners\CreateManipulationsImage;
+use App\Events\DeleteMedia;
+use App\Listeners\DeleteManipulationsImage;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         CreateMedia::class => [
             CreateManipulationsImage::class,
+        ],
+        DeleteMedia::class => [
+            DeleteManipulationsImage::class,
         ],
     ];
 

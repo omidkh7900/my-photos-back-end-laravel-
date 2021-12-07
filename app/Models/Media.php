@@ -57,4 +57,9 @@ class Media extends Model
     {
         return in_array($type, self::typesOfImage());
     }
+
+    public function deleteImage($type)
+    {
+        Storage::delete($this->manipulations[$type]);
+    }
 }

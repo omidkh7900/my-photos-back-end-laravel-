@@ -11,6 +11,7 @@ use App\Contracts\Http\Responses\Media\StoreMediaResponse;
 use App\Events\CreateMedia;
 use App\Contracts\Http\Responses\Media\ShowMediaResponse;
 use Illuminate\Support\Facades\Gate;
+use App\Events\DeleteMedia;
 
 class MediaController extends Controller
 {
@@ -39,5 +40,20 @@ class MediaController extends Controller
         event(new CreateMedia($data['media']));
 
         return app(StoreMediaResponse::class, ['data' => $data]);
+    }
+
+    public function destroy(MediaRepository $mediaRepository, $media)
+    {
+        $data['media'] = $mediaRepository->getMedia($media);
+
+        abort_if(Gate::denies('delete-media', $data['media']),
+                 403,
+                 __('authorize.delete_media'));
+
+        $mediaRepository->deleteMedia($media);
+
+        event(new DeleteMedia($data['media']));
+
+        return response()->json([], 200);
     }
 }

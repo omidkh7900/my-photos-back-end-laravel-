@@ -10,7 +10,11 @@ interface MediaRepository
 
     public function storeImage(int $mediaId, string $path, string $type);
 
+    public function deleteImage(int $mediaId, string $type);
+
     public function getMedia(int $mediaId);
 
     public function createMedia(array $data);
+
+    public function deleteMedia(int $mediaId);
 }
