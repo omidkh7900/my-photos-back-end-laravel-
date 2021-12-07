@@ -9,6 +9,8 @@ use App\Facades\Bindings\MediaService;
 use App\Http\Requests\StoreMediaRequest;
 use App\Contracts\Http\Responses\Media\StoreMediaResponse;
 use App\Events\CreateMedia;
+use App\Contracts\Http\Responses\Media\ShowMediaResponse;
+use Illuminate\Support\Facades\Gate;
 
 class MediaController extends Controller
 {
@@ -17,6 +19,17 @@ class MediaController extends Controller
         $data['medias'] = $mediaRepository->getUserMedias(auth()->id());
 
         return app(UserMediasResponse::class, ['data' => $data]);
+    }
+
+    public function show($media, MediaRepository $mediaRepository)
+    {
+        $data['media'] = $mediaRepository->getMedia($media);
+
+        abort_if(Gate::denies('view-media', $data['media']),
+                 403,
+                 __('authorize.view_media'));
+
+        return app(ShowMediaResponse::class, ['data' => $data]);
     }
 
     public function store(StoreMediaRequest $request, MediaRepository $mediaRepository)

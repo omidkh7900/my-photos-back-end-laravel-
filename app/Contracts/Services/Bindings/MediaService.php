@@ -8,6 +8,8 @@ interface MediaService
 
     public function StoreMediaResponse();
 
+    public function ShowMediaResponse();
+
     public function MediaRepository();
 
     public function MediaPolicy();

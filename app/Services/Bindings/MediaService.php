@@ -11,6 +11,8 @@ use App\Contracts\Policies\MediaPolicy as MediaContractPolicy;
 use App\Policies\MediaPolicy;
 use App\Contracts\Http\Responses\Media\StoreMediaResponse as StoreMediaContractResponse;
 use App\Http\Responses\Media\StoreMediaResponse;
+use App\Contracts\Http\Responses\Media\ShowMediaResponse as ShowMediaContractResponse;
+use App\Http\Responses\Media\ShowMediaResponse;
 
 class MediaService implements MediaContractService
 {
@@ -22,6 +24,11 @@ class MediaService implements MediaContractService
     public function StoreMediaResponse()
     {
         return app()->singleton(StoreMediaContractResponse::class, StoreMediaResponse::class);
+    }
+
+    public function ShowMediaResponse()
+    {
+        return app()->singleton(ShowMediaContractResponse::class, ShowMediaResponse::class);
     }
 
     public function MediaRepository()
@@ -38,6 +45,7 @@ class MediaService implements MediaContractService
     {
         $this->MediaRepository();
         $this->StoreMediaResponse();
+        $this->ShowMediaResponse();
         $this->UserMediasResponse();
         $this->MediaPolicy();
     }
