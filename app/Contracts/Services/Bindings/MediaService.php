@@ -6,6 +6,8 @@ interface MediaService
 {
     public function UserMediasResponse();
 
+    public function UserDeletedMediasResponse();
+
     public function StoreMediaResponse();
 
     public function ShowMediaResponse();

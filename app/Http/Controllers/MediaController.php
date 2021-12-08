@@ -12,6 +12,7 @@ use App\Events\CreateMedia;
 use App\Contracts\Http\Responses\Media\ShowMediaResponse;
 use Illuminate\Support\Facades\Gate;
 use App\Events\DeleteMedia;
+use App\Contracts\Http\Responses\Media\UserDeletedMediasResponse;
 
 class MediaController extends Controller
 {
@@ -20,6 +21,13 @@ class MediaController extends Controller
         $data['medias'] = $mediaRepository->getUserMedias(auth()->id());
 
         return app(UserMediasResponse::class, ['data' => $data]);
+    }
+
+    public function deleted(MediaRepository $mediaRepository)
+    {
+        $data['medias'] = $mediaRepository->getUserDeletedMedias(auth()->id());
+
+        return app(UserDeletedMediasResponse::class, ['data' => $data]);
     }
 
     public function show(MediaRepository $mediaRepository, $media)

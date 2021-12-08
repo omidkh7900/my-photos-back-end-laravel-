@@ -6,6 +6,8 @@ interface MediaRepository
 {
     public function getUserMedias(int $userId);
 
+    public function getUserDeletedMedias(int $userId);
+
     public function getImage(int $mediaId, string $type);
 
     public function storeImage(int $mediaId, string $path, string $type);

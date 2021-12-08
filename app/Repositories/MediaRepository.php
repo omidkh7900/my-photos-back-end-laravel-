@@ -19,6 +19,18 @@ class MediaRepository implements MediaContractRepository
         return $medias;
     }
 
+    public function getUserDeletedMedias(int $userId)
+    {
+        Paginator::currentPageResolver(fn () => request()->media_page);
+        $medias = Media::onlyTrashed()
+                        ->select(['id', 'name', 'file_name', 'mime_type'])
+                        ->where('user_id', $userId)
+                        ->paginate(9)
+                        ->setPageName('media_page');
+
+        return $medias;
+    }
+
     public function getImage(int $mediaId, string $type)
     {
         $media = Media::select('manipulations')->findOrFail($mediaId);
