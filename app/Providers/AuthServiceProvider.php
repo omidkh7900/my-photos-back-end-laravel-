@@ -28,6 +28,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('view-media', [MediaPolicy::class, 'view']);
         Gate::define('delete-media', [MediaPolicy::class, 'delete']);
+        Gate::define('force-delete-media', [MediaPolicy::class, 'forceDelete']);
 
         //
     }

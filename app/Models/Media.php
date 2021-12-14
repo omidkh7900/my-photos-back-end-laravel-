@@ -60,6 +60,8 @@ class Media extends Model
 
     public function deleteImage($type)
     {
-        Storage::delete($this->manipulations[$type]);
+        if(isset($this->manipulations[$type]) && Storage::exists($this->manipulations[$type])){
+            Storage::delete($this->manipulations[$type]);
+        }
     }
 }

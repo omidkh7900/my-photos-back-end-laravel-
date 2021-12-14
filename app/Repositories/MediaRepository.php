@@ -43,6 +43,11 @@ class MediaRepository implements MediaContractRepository
         return Media::findOrFail($mediaId);
     }
 
+    public function getDeletedMedia(int $mediaId)
+    {
+        return Media::onlyTrashed()->findOrFail($mediaId);
+    }
+
     public function createMedia(array $data)
     {
         $media = Media::create([
@@ -88,5 +93,11 @@ class MediaRepository implements MediaContractRepository
     {
         $media = Media::findOrFail($mediaId);
         $media->delete();
+    }
+
+    public function forceDeleteMedia(int $mediaId)
+    {
+        $media = Media::onlyTrashed()->findOrFail($mediaId);
+        $media->forceDelete();
     }
 }

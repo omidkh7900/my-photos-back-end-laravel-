@@ -16,7 +16,11 @@ interface MediaRepository
 
     public function getMedia(int $mediaId);
 
+    public function getDeletedMedia(int $mediaId);
+
     public function createMedia(array $data);
 
     public function deleteMedia(int $mediaId);
+
+    public function forceDeleteMedia(int $mediaId);
 }

@@ -13,6 +13,7 @@ use App\Contracts\Http\Responses\Media\ShowMediaResponse;
 use Illuminate\Support\Facades\Gate;
 use App\Events\DeleteMedia;
 use App\Contracts\Http\Responses\Media\UserDeletedMediasResponse;
+use App\Events\ForceDeleteMedia;
 
 class MediaController extends Controller
 {
@@ -61,6 +62,21 @@ class MediaController extends Controller
         $mediaRepository->deleteMedia($media);
 
         event(new DeleteMedia($data['media']));
+
+        return response()->json([], 200);
+    }
+
+    public function forceDelete(MediaRepository $mediaRepository, $media)
+    {
+        $data['media'] = $mediaRepository->getDeletedMedia($media);
+
+        abort_if(Gate::denies('force-delete-media', $data['media']),
+                 403,
+                 __('authorize.force_delete_media'));
+
+        event(new ForceDeleteMedia($data['media']));
+
+        $mediaRepository->forceDeleteMedia($media);
 
         return response()->json([], 200);
     }

@@ -10,6 +10,9 @@ use App\Events\CreateMedia;
 use App\Listeners\CreateManipulationsImage;
 use App\Events\DeleteMedia;
 use App\Listeners\DeleteManipulationsImage;
+use App\Events\ForceDeleteMedia;
+use App\Listeners\DeleteOriginalImageWhenMediaWasDeleted;
+use App\Listeners\DeleteManipulationsImageWhenMediaWasDeleted;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -27,6 +30,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         DeleteMedia::class => [
             DeleteManipulationsImage::class,
+        ],
+        ForceDeleteMedia::class => [
+            DeleteManipulationsImageWhenMediaWasDeleted::class,
+            DeleteOriginalImageWhenMediaWasDeleted::class,
         ],
     ];
 

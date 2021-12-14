@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth']], function () {
     Route::get('media/{media}/image', \App\Http\Controllers\ImageUrlController::class)->name('media.image');
     Route::get('media/deleted', [\App\Http\Controllers\MediaController::class, 'deleted'])->name('media.deleted');
+    Route::delete('media/{media}/force-delete', [\App\Http\Controllers\MediaController::class, 'forceDelete'])->name('media.forceDeleted');
     Route::apiResource('media', \App\Http\Controllers\MediaController::class);
 
     Route::get('/user', function (Request $request) {
